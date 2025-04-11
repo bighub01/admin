@@ -18,27 +18,39 @@ const OrderTable = () => {
   ];
 
   return (
-    <div className="p-4 overflow-x-auto">
-      <table className="min-w-full border border-gray-300 text-sm">
-        <thead className="bg-gray-100">
-          <tr>
-            <th className="border px-4 py-2 text-left font-medium text-gray-700">to_address</th>
-            <th className="border px-4 py-2 text-left font-medium text-gray-700">to_phone</th>
-            <th className="border px-4 py-2 text-left font-medium text-gray-700">status</th>
-            <th className="border px-4 py-2 text-left font-medium text-gray-700">order_date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((order, index) => (
-            <tr key={index} className="hover:bg-gray-50">
-              <td className="border px-4 py-2">{order.to_address}</td>
-              <td className="border px-4 py-2">{order.to_phone}</td>
-              <td className="border px-4 py-2">{order.status}</td>
-              <td className="border px-4 py-2">{order.order_date}</td>
+    <div className="p-6 bg-gradient-to-r from-green-200 to-blue-300 rounded-lg shadow-lg">
+      <h2 className="text-3xl font-semibold text-gray-800 text-center mb-6">Danh Sách Đơn Hàng</h2>
+
+      <div className="overflow-x-auto rounded-lg shadow-md bg-white">
+        <table className="min-w-full border-collapse text-sm">
+          <thead className="bg-blue-100">
+            <tr>
+              <th className="border px-6 py-3 text-left font-medium text-gray-700">Địa chỉ giao</th>
+              <th className="border px-6 py-3 text-left font-medium text-gray-700">Số điện thoại</th>
+              <th className="border px-6 py-3 text-left font-medium text-gray-700">Trạng thái</th>
+              <th className="border px-6 py-3 text-left font-medium text-gray-700">Ngày đặt</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {data.map((order, index) => (
+              <tr key={index} className="hover:bg-blue-50 transition duration-200 ease-in-out">
+                <td className="border px-6 py-4 text-gray-800">{order.to_address}</td>
+                <td className="border px-6 py-4 text-gray-800">{order.to_phone}</td>
+                <td className="border px-6 py-4 text-gray-800">
+                  <span
+                    className={`${
+                      order.status === 'Đang giao' ? 'bg-yellow-400' : 'bg-green-400'
+                    } text-white px-2 py-1 rounded-full`}
+                  >
+                    {order.status}
+                  </span>
+                </td>
+                <td className="border px-6 py-4 text-gray-800">{order.order_date}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

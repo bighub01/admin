@@ -54,7 +54,11 @@ const SelectProvince = () => {
   };
 
   return (
-    <div className="p-6 space-y-6 bg-white shadow rounded-lg max-w-4xl mx-auto">
+    <div className="p-8 space-y-6 bg-gradient-to-r from-blue-200 to-indigo-300 rounded-lg shadow-xl max-w-4xl mx-auto">
+      <h2 className="text-3xl font-semibold text-gray-800 text-center mb-6">
+        Chọn Địa Chỉ
+      </h2>
+
       {/* Tỉnh / Thành phố */}
       <Autocomplete
         options={PROVINCE_LIST}
@@ -67,6 +71,7 @@ const SelectProvince = () => {
             label="Tỉnh / Thành phố"
             variant="outlined"
             fullWidth
+            className="border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
           />
         )}
       />
@@ -87,6 +92,7 @@ const SelectProvince = () => {
             label="Quận / Huyện"
             variant="outlined"
             fullWidth
+            className="border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
             InputProps={{
               ...params.InputProps,
               endAdornment: (
@@ -117,6 +123,7 @@ const SelectProvince = () => {
             label="Phường / Xã"
             variant="outlined"
             fullWidth
+            className="border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
           />
         )}
       />
@@ -126,11 +133,12 @@ const SelectProvince = () => {
         label="Địa chỉ cụ thể (số nhà, tên đường...)"
         variant="outlined"
         fullWidth
+        className="border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
       />
 
       {/* Trạng thái */}
-      {loading && <p>Đang tải dữ liệu...</p>}
-      {error && <p className="text-red-500">Lỗi: {error}</p>}
+      {loading && <p className="text-blue-500 text-center">Đang tải dữ liệu...</p>}
+      {error && <p className="text-red-500 text-center">Lỗi: {error}</p>}
     </div>
   );
 };

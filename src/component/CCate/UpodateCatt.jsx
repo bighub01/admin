@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategories , updateCategory } from "../../api/Category/categoryCre";
+import { fetchCategories, updateCategory } from "../../api/Category/categoryCre";
+
 const UpdateCategoryForm = () => {
   const dispatch = useDispatch();
   const { categories, loading, error } = useSelector((state) => state.category);
@@ -29,19 +30,19 @@ const UpdateCategoryForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md">
-      <h2 className="text-xl font-bold mb-4">Cập Nhật Danh Mục</h2>
+    <div className="max-w-lg mx-auto p-8 bg-gradient-to-r from-blue-200 to-indigo-300 shadow-xl rounded-lg">
+      <h2 className="text-3xl font-semibold text-gray-800 text-center mb-8">Cập Nhật Danh Mục</h2>
 
-      {loading && <p className="text-blue-500">Đang tải...</p>}
-      {error && <p className="text-red-500">{error}</p>}
+      {loading && <p className="text-blue-500 text-center">Đang tải...</p>}
+      {error && <p className="text-red-500 text-center">{error}</p>}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700">Chọn danh mục</label>
+          <label className="block text-lg font-medium text-gray-700 mb-2">Chọn danh mục</label>
           <select
             value={selectedCategory}
             onChange={handleCategoryChange}
-            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg"
           >
             <option value="">-- Chọn danh mục --</option>
             {categories.map((category) => (
@@ -53,19 +54,20 @@ const UpdateCategoryForm = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Tên danh mục</label>
+          <label className="block text-lg font-medium text-gray-700 mb-2">Tên danh mục</label>
           <input
             type="text"
             value={categoryName}
             onChange={(e) => setCategoryName(e.target.value)}
-            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg"
+            placeholder="Nhập tên danh mục"
             required
           />
         </div>
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 disabled:bg-gray-400"
+          className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-3 rounded-lg shadow-md hover:from-blue-600 hover:to-indigo-700 transition duration-200 ease-in-out disabled:bg-gray-400"
           disabled={loading}
         >
           {loading ? "Đang cập nhật..." : "Cập nhật danh mục"}

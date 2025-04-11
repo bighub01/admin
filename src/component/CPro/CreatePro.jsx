@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createProduct } from "../../api/Product/productCre";
 import { fetchCategories } from "../../api/Category/categoryCre";
+import ProductList from "./ProductDialog";
 
 const ProductForm = () => {
   const dispatch = useDispatch();
@@ -15,10 +16,11 @@ const ProductForm = () => {
   // State cho input form
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
-  const [idCategory, setIdCategory] = useState(""); // Sử dụng idCategory thay vì categoryName
+  const [idCategory, setIdCategory] = useState("");
   const [image, setImage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(false); // Thay đổi từ string thành boolean
 
-  // Fetch danh mục khi component được mount
+  // Fetch danh mục khi component mount
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
@@ -31,105 +33,129 @@ const ProductForm = () => {
     }
   };
 
-  // Xử lý submit form
+  // Hiển thị thông báo khi tạo thành công
+  useEffect(() => {
+    if (product) {
+      setProductName("");
+      setPrice("");
+      setIdCategory("");
+      setImage(null);
+      setSuccessMessage(true);
+
+      const timeout = setTimeout(() => {
+        setSuccessMessage(false);
+      }, 3000); // Hiển thị modal trong 3 giây
+
+      return () => clearTimeout(timeout);
+    }
+  }, [product]);
+
+  // Xử lý submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!image) {
       alert("Vui lòng chọn ảnh sản phẩm!");
       return;
     }
-  
-    // Gửi dữ liệu sản phẩm kèm ảnh
+
     const productData = {
       productName,
       price,
       idCategory,
-      file: image, // ✅ Cần đúng key là "file"
+      file: image,
     };
-  
+
     dispatch(createProduct(productData));
   };
-  
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-md">
-      <h2 className="text-xl font-bold mb-4">Tạo Sản Phẩm</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Nhập tên sản phẩm */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Tên sản phẩm</label>
-          <input
-            type="text"
-            placeholder="Nhập tên sản phẩm"
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
-            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-            required
-          />
-        </div>
+    // <div className="max-w-lg mx-auto p-8 bg-gradient-to-r from-blue-200 to-indigo-300 shadow-xl rounded-lg relative">
+    //   <h2 className="text-3xl font-semibold text-gray-800 text-center mb-8">Tạo Sản Phẩm</h2>
+    //   <form onSubmit={handleSubmit} className="space-y-6">
+    //     {/* Nhập tên sản phẩm */}
+    //     <div>
+    //       <label className="block text-lg font-medium text-gray-700 mb-2">Tên sản phẩm</label>
+    //       <input
+    //         type="text"
+    //         placeholder="Nhập tên sản phẩm"
+    //         value={productName}
+    //         onChange={(e) => setProductName(e.target.value)}
+    //         className="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg"
+    //         required
+    //       />
+    //     </div>
 
-        {/* Nhập giá sản phẩm */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Giá sản phẩm</label>
-          <input
-            type="text"
-            placeholder="Nhập giá sản phẩm"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-            required
-          />
-        </div>
+    //     {/* Nhập giá sản phẩm */}
+    //     <div>
+    //       <label className="block text-lg font-medium text-gray-700 mb-2">Giá sản phẩm</label>
+    //       <input
+    //         type="text"
+    //         placeholder="Nhập giá sản phẩm"
+    //         value={price}
+    //         onChange={(e) => setPrice(e.target.value)}
+    //         className="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg"
+    //         required
+    //       />
+    //     </div>
 
-        {/* Chọn danh mục bằng combobox */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Danh mục</label>
-          <select
-            value={idCategory}
-            onChange={(e) => setIdCategory(e.target.value)} // Sử dụng idCategory thay vì categoryName
-            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-            required
-          >
-            <option value="">Chọn danh mục</option>
-            {loadingCategories ? (
-              <option disabled>Đang tải danh mục...</option>
-            ) : (
-              categories.map((cat) => (
-                <option key={cat.idCategory} value={cat.idCategory}>
-                  {cat.categoryName}
-                </option>
-              ))
-            )}
-          </select>
-        </div>
+    //     {/* Chọn danh mục */}
+    //     <div>
+    //       <label className="block text-lg font-medium text-gray-700 mb-2">Danh mục</label>
+    //       <select
+    //         value={idCategory}
+    //         onChange={(e) => setIdCategory(e.target.value)}
+    //         className="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg"
+    //         required
+    //       >
+    //         <option value="">Chọn danh mục</option>
+    //         {loadingCategories ? (
+    //           <option disabled>Đang tải danh mục...</option>
+    //         ) : (
+    //           categories.map((cat) => (
+    //             <option key={cat.idCategory} value={cat.idCategory}>
+    //               {cat.categoryName}
+    //             </option>
+    //           ))
+    //         )}
+    //       </select>
+    //     </div>
 
-        {/* Chọn ảnh sản phẩm */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Ảnh sản phẩm</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-            required
-          />
-        </div>
+    //     {/* Chọn ảnh */}
+    //     <div>
+    //       <label className="block text-lg font-medium text-gray-700 mb-2">Ảnh sản phẩm</label>
+    //       <input
+    //         type="file"
+    //         accept="image/*"
+    //         onChange={handleImageChange}
+    //         className="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg"
+    //         required
+    //       />
+    //     </div>
 
-        {/* Nút tạo sản phẩm */}
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 disabled:bg-gray-400"
-          disabled={loading}
-        >
-          {loading ? "Đang tạo..." : "Tạo sản phẩm"}
-        </button>
+    //     {/* Nút submit */}
+    //     <button
+    //       type="submit"
+    //       className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-3 rounded-lg shadow-md hover:from-blue-600 hover:to-indigo-700 transition duration-200 ease-in-out disabled:bg-gray-400"
+    //       disabled={loading}
+    //     >
+    //       {loading ? "Đang tạo..." : "Tạo sản phẩm"}
+    //     </button>
 
-        {/* Hiển thị thông báo lỗi hoặc thành công */}
-        {error && <p className="text-red-500 text-center mt-2">{error}</p>}
-        {product && <p className="text-green-500 text-center mt-2">Sản phẩm đã được tạo thành công!</p>}
-      </form>
-    </div>
+    //     {/* Hiển thị lỗi */}
+    //     {error && <p className="text-red-500 text-center mt-2">{error}</p>}
+    //   </form>
+
+    //   {/* ✅ Dialog thông báo thành công */}
+    //   {successMessage && (
+    //     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+    //       <div className="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg text-lg">
+    //         Sản phẩm đã được tạo thành công!
+    //       </div>
+    //     </div>
+    //   )}
+    // </div>
+    <ProductList/>
   );
 };
 
