@@ -4,8 +4,8 @@ import UpdateProductForm from "../component/CPro/UpdatePro";
 import CategoryList from "../component/CCate/GetallCat";
 import UpdateCategoryForm from "../component/CCate/UpodateCatt";
 import CreateCategoryForm from "../component/CCate/CreateCat";
-import OrderTable from "../component/order/order_table";
-import OrderInfoComponent from "../component/order/order_info";
+import LocationLookup from "../component/Cuser/fetchDistrictWard";
+import CalculateFeeForm from "../component/order/order_info";
 import SelectProvince from "../component/provinces/ProvinceInfo";
 const publicRoute = [
   {
@@ -33,12 +33,12 @@ const publicRoute = [
     component: UpdateCategoryForm,
   },
   {
-    path: "/OrderTable",
-    component: OrderTable,
+    path: "/LocationLookup",
+    component: LocationLookup,
   },
   {
     path: "/OrderInfoComponent",
-    component: OrderInfoComponent,
+    component: CalculateFeeForm,
   },
   {
     path: "/SelectProvince",

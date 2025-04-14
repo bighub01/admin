@@ -53,14 +53,6 @@ const Sidebar = () => {
               </li>
               <li>
                 <Link
-                  to="/SelectProvince"
-                  className="flex items-center w-full p-2 pl-10 text-white transition duration-75 rounded-lg group hover:bg-blue-600"
-                >
-                  Select Province
-                </Link>
-              </li>
-              <li>
-                <Link
                   to="/prolist"
                   className="flex items-center w-full p-2 pl-10 text-white transition duration-75 rounded-lg group hover:bg-blue-600"
                 >
@@ -136,22 +128,6 @@ const Sidebar = () => {
                   className="flex items-center w-full p-2 pl-10 text-white transition duration-75 rounded-lg group hover:bg-blue-600"
                 >
                   Category Update
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/OrderTable"
-                  className="flex items-center w-full p-2 pl-10 text-white transition duration-75 rounded-lg group hover:bg-blue-600"
-                >
-                  OrderTable
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/OrderInfoComponent"
-                  className="flex items-center w-full p-2 pl-10 text-white transition duration-75 rounded-lg group hover:bg-blue-600"
-                >
-                  OrderInfoComponent
                 </Link>
               </li>
             </ul>

@@ -4,13 +4,13 @@ import axios from "axios";
 const API_BASE_URL = "https://nhom11t4sangca1dotnet.onrender.com/api/GHN";
 
 // Async thunk để gọi API
-export const orderInfo = createAsyncThunk(
-  "order/orderInfo",
-  async (orderCode, { rejectWithValue }) => {
+export const calculate = createAsyncThunk(
+  "calculate/calculate-fee",
+  async (calcu, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/order-info`,
-        { orderCode },
+        `${API_BASE_URL}/calculate-fee`,
+        calcu, // ✅ Gửi trực tiếp object
         {
           headers: { "Content-Type": "application/json" },
         }
@@ -21,6 +21,7 @@ export const orderInfo = createAsyncThunk(
     }
   }
 );
+
 
 // Khởi tạo state
 const initialState = {
@@ -36,15 +37,15 @@ const orderSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(orderInfo.pending, (state) => {
+      .addCase(calculate.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(orderInfo.fulfilled, (state, action) => {
+      .addCase(calculate.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
       })
-      .addCase(orderInfo.rejected, (state, action) => {
+      .addCase(calculate.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
