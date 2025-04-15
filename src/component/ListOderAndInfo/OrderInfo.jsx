@@ -25,6 +25,9 @@ const OrderDetailPage = () => {
 
   return (
     <div className="p-6 max-w-6xl mx-auto bg-white shadow-md rounded-lg border border-blue-200">
+     <h2 className="text-2xl font-bold mb-6 text-gray-800 border-b pb-2">
+      📦Mã đơn :{ orderCode }
+    </h2>
       {/* Header border */}
       <div className="border-t-4 border-dashed border-blue-400 mb-4"></div>
 
@@ -60,6 +63,14 @@ const OrderDetailPage = () => {
       <div className="mt-8">
         <h2 className="text-lg font-bold mb-4 text-gray-800">Bên nhận</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+            <label className="block font-medium mb-1">Họ tên *</label>
+            <input
+              className="w-full border rounded px-3 py-2"
+              value={detail.to_name}
+              readOnly
+            />
+          </div>
           <div>
             <label className="block font-medium mb-1">Số điện thoại *</label>
             <input
@@ -76,14 +87,7 @@ const OrderDetailPage = () => {
               readOnly
             />
           </div>
-          <div>
-            <label className="block font-medium mb-1">Họ tên *</label>
-            <input
-              className="w-full border rounded px-3 py-2"
-              value={detail.to_name}
-              readOnly
-            />
-          </div>
+        
           <div>
             <label className="block font-medium mb-1">Tên hàng hóa</label>
             <input
