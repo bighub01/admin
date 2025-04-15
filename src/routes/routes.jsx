@@ -7,6 +7,8 @@ import CreateCategoryForm from "../component/CCate/CreateCat";
 import LocationLookup from "../component/Cuser/fetchDistrictWard";
 import CalculateFeeForm from "../component/order/order_info";
 import SelectProvince from "../component/provinces/ProvinceInfo";
+import OrderList from "../component/ListOderAndInfo/ListoOder";
+import OrderDetailList from "../component/ListOderAndInfo/OrderInfo";
 const publicRoute = [
   {
     path: "/",
@@ -44,7 +46,16 @@ const publicRoute = [
     path: "/SelectProvince",
     component: SelectProvince,
   },
+  {
+    path: "/OrderList",
+    component: OrderList,
+  },
+  {
+    path: "/order-detail/:orderCode", // 👈 route động để xem chi tiết đơn hàng
+    component: OrderDetailList,
+  },
 ];
+
 
 const priviteRoute = [];
 
